@@ -1,0 +1,10 @@
+[0/1] Re-running CMake...
+-- IDF_TARGET not set, using default target: esp32
+-- Found Git: /usr/bin/git (found version "2.40.0") 
+-- The ASM compiler identification is GNU
+-- Found assembler: /usr/bin/cc
+-- Building ESP-IDF components for target esp32
+-- Project sdkconfig file /home/ivy/Documents/BLUESAT_PROJECT/spaceport-2023/esp-idf/nessie_projects/Drivers/test/main/sdkconfig
+-- Configuring incomplete, errors occurred!
+FAILED: build.ninja 
+/usr/bin/cmake --regenerate-during-build -S/home/ivy/Documents/BLUESAT_PROJECT/spaceport-2023/esp-idf/nessie_projects/Drivers/test/main -B/home/ivy/Documents/BLUESAT_PROJECT/spaceport-2023/esp-idf/nessie_projects/Drivers/test/main/build

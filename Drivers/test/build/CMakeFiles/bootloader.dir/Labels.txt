@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+/home/ivy/Documents/BLUESAT_PROJECT/spaceport-2023/esp-idf/nessie_projects/Drivers/test/build/CMakeFiles/bootloader
+/home/ivy/Documents/BLUESAT_PROJECT/spaceport-2023/esp-idf/nessie_projects/Drivers/test/build/CMakeFiles/bootloader.rule
+/home/ivy/Documents/BLUESAT_PROJECT/spaceport-2023/esp-idf/nessie_projects/Drivers/test/build/CMakeFiles/bootloader-complete.rule
+/home/ivy/Documents/BLUESAT_PROJECT/spaceport-2023/esp-idf/nessie_projects/Drivers/test/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+/home/ivy/Documents/BLUESAT_PROJECT/spaceport-2023/esp-idf/nessie_projects/Drivers/test/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+/home/ivy/Documents/BLUESAT_PROJECT/spaceport-2023/esp-idf/nessie_projects/Drivers/test/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+/home/ivy/Documents/BLUESAT_PROJECT/spaceport-2023/esp-idf/nessie_projects/Drivers/test/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+/home/ivy/Documents/BLUESAT_PROJECT/spaceport-2023/esp-idf/nessie_projects/Drivers/test/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+/home/ivy/Documents/BLUESAT_PROJECT/spaceport-2023/esp-idf/nessie_projects/Drivers/test/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+/home/ivy/Documents/BLUESAT_PROJECT/spaceport-2023/esp-idf/nessie_projects/Drivers/test/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule

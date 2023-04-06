@@ -1,0 +1,2 @@
+/home/ivy/Documents/BLUESAT_PROJECT/spaceport-2023/esp-idf/nessie_projects/Drivers/test/main/build/CMakeFiles/edit_cache.dir
+/home/ivy/Documents/BLUESAT_PROJECT/spaceport-2023/esp-idf/nessie_projects/Drivers/test/main/build/CMakeFiles/rebuild_cache.dir

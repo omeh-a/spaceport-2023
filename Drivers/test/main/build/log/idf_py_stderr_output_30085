@@ -1,0 +1,13 @@
+Compiler supported targets: x86_64-pc-linux-gnu
+
+CMake Error at /home/ivy/Documents/BLUESAT_PROJECT/spaceport-2023/esp-idf/components/xtensa/project_include.cmake:18 (message):
+  Internal error, toolchain has not been set correctly by project (or an
+  invalid CMakeCache.txt file has been generated somehow)
+Call Stack (most recent call first):
+  /home/ivy/Documents/BLUESAT_PROJECT/spaceport-2023/esp-idf/tools/cmake/build.cmake:397 (include)
+  /home/ivy/Documents/BLUESAT_PROJECT/spaceport-2023/esp-idf/tools/cmake/build.cmake:619 (__build_process_project_includes)
+  /home/ivy/Documents/BLUESAT_PROJECT/spaceport-2023/esp-idf/tools/cmake/project.cmake:464 (idf_build_process)
+  CMakeLists.txt:4 (project)
+
+
+ninja: error: rebuilding 'build.ninja': subcommand failed

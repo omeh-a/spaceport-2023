@@ -1,0 +1,3 @@
+Compiler supported targets: xtensa-esp32-elf
+
+fatal: not a git repository: /home/ivy/Documents/BLUESAT_PROJECT/spaceport-2023/esp-idf/components/openthread/openthread/../../../.git/modules/components/openthread/openthread
