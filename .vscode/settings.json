@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "compare": "cpp",
+        "main.h": "c"
+    },
+    "idf.adapterTargetName": "esp32"
+}
