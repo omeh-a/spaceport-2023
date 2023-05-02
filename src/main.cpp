@@ -2,9 +2,12 @@
  * Spaceport main module
  */
 
-// Out of tree dependencies
-// if you get compile errors on these check your esp-idf install
+// Standard dependencies
 #include <inttypes.h>
+
+// Out of tree dependencies
+// if you get compile errors on these check your esp-idf install. 
+// Your IDE will almost definitely be confused by these, but don't worry.
 #include "sdkconfig.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -12,13 +15,9 @@
 #include "esp_flash.h"
 
 // Our dependencies
-#include "main.h"
+#include "main.hpp"
 
-// A/B buffer
-static BufferEntry[BUFFER_SZ] bufA;
-static BufferEntry[BUFFER_SZ] bufB;
-static int bufOffset = 0;
-static int currBuff;
+
 
 
 void app_main(void)
