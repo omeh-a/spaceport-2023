@@ -2,9 +2,12 @@
  * Spaceport main module
  */
 
-// Out of tree dependencies
-// if you get compile errors on these check your esp-idf install
+// Standard dependencies
 #include <inttypes.h>
+
+// Out of tree dependencies
+// if you get compile errors on these check your esp-idf install.
+// Your IDE will almost definitely be confused by these, but don't worry.
 #include "sdkconfig.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -12,47 +15,24 @@
 #include "esp_flash.h"
 
 // Our dependencies
-#include "main.h"
+#include "main.hpp"
 
-// A/B buffer
-static BufferEntry[BUFFER_SZ] bufA;
-static BufferEntry[BUFFER_SZ] bufB;
-static int bufOffset = 0;
-static int currBuff;
-
-
-void app_main(void)
+// idf entrypoint
+extern "C" void app_main()
 {
-    printf("Initialising Bluesat Rocket Telemtry system...\n");
+    printf("Initialising Bluesat Rocket Telemetry system...\n");
     chipCheck();
+    obc_main();
+}
 
-
-    // Main loop
-    while (1) {
-        loop();
-    }
+// Main function
+void obc_main(void) {
+    printf("Hello, world!");
 }
 
 
-void loop(void) {
-    // Actual telemetry loop. This should compile to an expansion
-    // since it's called once, in place, so it shouldn't incur stack depth
-
-    return
-}
-
-void bufferWrite(BufferEntry b) {
-    // Check if current buffer is exhausted
-    // if (bufOffset >= BUFFER_SZ - 1) {
-    //     // switch buffer
-    //     currBuff = !currBuff;
-    //     buffOffset = 0;
-    //     flushBuffer()
-    // }
-}
-
-
-void chipCheck(void) {
+void chipCheck(void)
+{
     /* Print chip information */
     esp_chip_info_t chip_info;
     uint32_t flash_size;
@@ -67,7 +47,8 @@ void chipCheck(void) {
     unsigned major_rev = chip_info.revision / 100;
     unsigned minor_rev = chip_info.revision % 100;
     printf("silicon revision v%d.%d, ", major_rev, minor_rev);
-    if(esp_flash_get_size(NULL, &flash_size) != ESP_OK) {
+    if (esp_flash_get_size(NULL, &flash_size) != ESP_OK)
+    {
         printf("Get flash size failed");
         return;
     }
