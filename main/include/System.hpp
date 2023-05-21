@@ -15,6 +15,7 @@
 // esp-idf dependencies
 #include "driver/gpio.h"
 
+
 // Our dependencies
 #include "types.hpp"
 #include "DS3231.hpp"
@@ -70,7 +71,7 @@ public:
     // ioctl
     int flash_flush(void);
     void log_init();
-    bool log_msg(std::string msg);
+    void log_msg(std::string msg);
     void offload(void);
 
 private:
@@ -83,8 +84,8 @@ private:
     W25Q128 flash;
     H3LIS100DLTR acc0;
     H3LIS100DLTR acc1;
-    BMP280 baro0;
-    BMP280 baro1;
+    BME280 baro0;
+    BME280 baro1;
 
     // Startup checks
     bool check_ext_flash(void);

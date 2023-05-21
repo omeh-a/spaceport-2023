@@ -23,6 +23,8 @@ public:
     // uint8_t busAddress;
 
 
-    bool checkOK();
+    bool checkOK() {
+        return true; // Placeholder
+    }
 };
 #endif

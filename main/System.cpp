@@ -70,3 +70,12 @@ System::System() {
 
 }
 
+void System::log_msg(std::string msg) {
+    // Placeholder
+    std::cout << msg;
+}
+
+void System::log_init() {
+    // Placeholder
+    std::cout << "Initialising logger...\n";
+}

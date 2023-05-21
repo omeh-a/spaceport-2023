@@ -1,19 +1,19 @@
-// BMP280.hpp
-// Header file for the BMP280 pressure sensor
+// BME280.hpp
+// Header file for the BME280 pressure sensor
 // Matt Rossouw (omeh-a)
 // 05/2023
 
-#ifndef BMP280_H
-#define BMP280_H
+#ifndef BME280_H
+#define BME280_H
 
 #include "Device.hpp"
 
 
-class BMP280 : public Device {
+class BME280 : public Device {
 public:
-    BMP280();
+    BME280();
 
     // Device methods
-   
+    struct timeval getTime();
 };
 #endif

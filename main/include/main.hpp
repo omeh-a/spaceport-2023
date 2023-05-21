@@ -12,5 +12,15 @@
 void chipCheck(void);
 
 // Main function
+// Note cursed preprocessor directives here to force
+// the function to be have C linkage.
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void obc_main(void);
 
+#ifdef __cplusplus
+}
+#endif
