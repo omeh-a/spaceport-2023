@@ -5,7 +5,6 @@
 
 #ifndef TYPES_H
 #define TYPES_H
-#endif
 
 #include <vector>
 #include <stdint.h>
@@ -37,3 +36,4 @@ typedef struct {
     uint16_t pressure;
 } env_reading;
 
+#endif
