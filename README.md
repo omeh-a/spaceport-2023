@@ -1,22 +1,35 @@
 # spaceport-2023
-OBC for our payload for Spaceport Cup 2023.
+OBC for our payload for Spaceport Cup 2023, targeting an ESP32-WROOM on our custom OBC board.
 
+[See our Confluence page here for the software design, electrical bill of materials and list of datasheets](https://bluesat.atlassian.net/wiki/spaces/SP/pages/1998127146/Rocket+OBC+V2)
+
+## Dependencies:
+* [ESP-IDF CXX](https://github.com/espressif/esp-idf-cxx) -> Make sure you add it as a managed component to your `idf.py` from the directory where you wish to build this project!
+
+## System overview
 Payload:
-* Zero G 3D mSLA printer based on https://github.com/Lite3DP/Lite3DP-S1.
-* To monitor: resin temperature, resin pressure, microcontroller activity, pressure baffle movement.
-* Triggers at start of microgravity -> approximately 50 seconds of microgravity to print in. 
+* Zero G 3D DLP resin printer based on our own design with a TI DLPDLCR2000EVM.
+* To monitor: resin temperature, resin pressure, microcontroller activity.
+* Triggers at start of microgravity -> approximately 30 seconds of microgravity to print in. 
 
 Telemetry:
-* GY91 - IMU based on MPU 9250
-* HELIS100DLTR - automotive accelorometer
+* 9 Axis IMUs - ICM 20948. Double redundant
+* High-range accelerometers - HELIS100DLTR. Double redundant
+* Barometer - BME280. Double redundant
+* DS3231 RTC module
 * Thermocouples
 * Battery voltage
+
+Other peripherals:
+* ESP32-WROOM
+* RP2040 for USB/UART bridge and I2C IO expansion
+* W25Q128 flash - one for primary storage and one as buffer for RP2040
 
 The system needs to sleep on the launchpad (where it will sit for at least an hour) and wake upon movement. Telemetry is collected at low speed until launch, where it is collected at max speed until zero G. after this time, telemetry is slowed and the payload activates and is monitored.
 
 ## Project structure
 
-The entire project runs on an ESP32 which interfaces with an AVR based microcontroller for running the payload.
+The entire project runs on an ESP32 which interfaces with another RP2040 onboard the payload. The payload is interfaced over SPI through the main rocket bus.
 
 ## Git Hygiene guide
 
@@ -47,59 +60,3 @@ For C-based languages we will use the Google Style guide <https://google.github.
 The OBC is based on an ESP32-mini. 
 
 
-
-
-
-| Supported Targets | ESP32 | ESP32-C2 | ESP32-C3 | ESP32-C6 | ESP32-H2 | ESP32-H4 | ESP32-S2 | ESP32-S3 |
-| ----------------- | ----- | -------- | -------- | -------- | -------- | -------- | -------- | -------- |
-
-# Hello World Example
-
-Starts a FreeRTOS task to print "Hello World".
-
-(See the README.md file in the upper level 'examples' directory for more information about examples.)
-
-## How to use example
-
-Follow detailed instructions provided specifically for this example.
-
-Select the instructions depending on Espressif chip installed on your development board:
-
-- [ESP32 Getting Started Guide](https://docs.espressif.com/projects/esp-idf/en/stable/get-started/index.html)
-- [ESP32-S2 Getting Started Guide](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s2/get-started/index.html)
-
-
-## Example folder contents
-
-The project **hello_world** contains one source file in C language [hello_world_main.c](main/hello_world_main.c). The file is located in folder [main](main).
-
-ESP-IDF projects are built using CMake. The project build configuration is contained in `CMakeLists.txt` files that provide set of directives and instructions describing the project's source files and targets (executable, library, or both).
-
-Below is short explanation of remaining files in the project folder.
-
-```
-├── CMakeLists.txt
-├── pytest_hello_world.py      Python script used for automated testing
-├── main
-│   ├── CMakeLists.txt
-│   └── hello_world_main.c
-└── README.md                  This is the file you are currently reading
-```
-
-For more information on structure and contents of ESP-IDF projects, please refer to Section [Build System](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/build-system.html) of the ESP-IDF Programming Guide.
-
-## Troubleshooting
-
-* Program upload failure
-
-    * Hardware connection is not correct: run `idf.py -p PORT monitor`, and reboot your board to see if there are any output logs.
-    * The baud rate for downloading is too high: lower your baud rate in the `menuconfig` menu, and try again.
-
-## Technical support and feedback
-
-Please use the following feedback channels:
-
-* For technical queries, go to the [esp32.com](https://esp32.com/) forum
-* For a feature request or bug report, create a [GitHub issue](https://github.com/espressif/esp-idf/issues)
-
-We will get back to you as soon as possible.
