@@ -22,6 +22,7 @@
 #include "W25Q128.hpp"
 #include "H3LIS100DLTR.hpp"
 #include "BME280.hpp"
+#include "ICM20948.hpp"
 
 // ### Pins for system control ###
 
@@ -94,6 +95,9 @@ private:
     H3LIS100DLTR acc1;
     BME280 baro0;
     BME280 baro1;
+    ICM20948 imu0;
+    ICM20948 imu1;
+    
 
     // Private methods
     void log_internal(std::string msg, log_type type);
