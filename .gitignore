@@ -33,3 +33,15 @@ build/
 *.exe
 *.out
 *.app
+
+# vscode
+.vscode
+
+# CMake
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles/
+
+# esp-idf
+build/
+managed_components/
