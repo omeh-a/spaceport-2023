@@ -47,35 +47,60 @@ System::System() {
         // If OK, set system time to RTC time
         tv = rtc.getTime();
         settimeofday(&tv, NULL);
-        log_msg(std::string("RTC found. Setting system time to RTC time.\n"));
+        log_internal(std::string("RTC found. Setting system time to RTC time.\n"), LOG_INFO);
     } else {
         // Otherwise, leave system time as is.
         tv.tv_sec = 0;
         tv.tv_usec = 0;
         settimeofday(&tv, NULL);
-        log_msg(std::string("RTC not found. Falling back to relative time.\n"));
+        log_internal(std::string("RTC not found. Falling back to relative time.\n"), LOG_WARNING);
     }
     // NOTE: We settimeofday inside of both branches of the if statement so
     //       our logging system can use the system time.
 
-    
-
-    // If offload mode is enabled, there is no more work to do. Return.
-    if (mode == MODE_OFFLOAD) {
-        return;
-    }
-
-    // Initialise devices
-    
-
+    log_internal(std::string("Core initialisation complete.\n"), LOG_INFO);
 }
 
-void System::log_msg(std::string msg) {
+/**
+ * Logs a message to the system log.
+ * 
+ * Automatically arbitrates between internal and external flash, and
+ * will also output to serial if the system is in test mode or 
+ * diagnostic mode.
+ * 
+ * @param msg The message to log.
+*/
+void System::log_msg(std::string msg, log_type type) {
     // Placeholder
     std::cout << msg;
 }
 
+/**
+ * Logs a message to the system log. Same as `log_msg` but prepends
+ * the source as coming from the System manager.
+ * 
+ * Automatically arbitrates between internal and external flash, and
+ * will also output to serial if the system is in test mode or 
+ * diagnostic mode.
+ * 
+ * @param msg The message to log.
+*/
+void System::log_internal(std::string msg, log_type type) {
+    // Placeholder
+    std::cout << "System: " << msg;
+}
+
+/**
+ * Initialises the system logger.
+ * 
+ * Generates a new logfile if appropriate on the correct
+ * device.
+*/
 void System::log_init() {
     // Placeholder
     std::cout << "Initialising logger...\n";
+}
+
+void System::i2c_init() {
+    // Placeholder
 }

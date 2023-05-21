@@ -56,27 +56,35 @@ enum flash_mode {
     FLASH_EXTERNAL
 };
 
+enum log_type {
+    LOG_INFO,
+    LOG_WARNING,
+    LOG_ERROR,
+    LOG_CRITICAL
+};
+
 // ### Class prototype ### 
 class System {
 public:
+    system_mode mode;
+
     // Default constructor
     System();
 
     // Readings
-    uint32_t gettime(void);
     std::vector<accel_reading> accelread(void);
     std::vector<imu_reading> imuread(void);
     rtc_reading rtcread(void);
 
     // ioctl
     int flash_flush(void);
-    void log_init();
-    void log_msg(std::string msg);
+    void log_init(void);
+    void log_msg(std::string msg, log_type type);
     void offload(void);
+    void i2c_init(void);
 
 private:
     // Private variables
-    system_mode mode;
     flash_mode flashmode;
 
     // Devices
@@ -87,9 +95,10 @@ private:
     BME280 baro0;
     BME280 baro1;
 
+    // Private methods
+    void log_internal(std::string msg, log_type type);
+
     // Startup checks
-    bool check_ext_flash(void);
-    bool check_rtc(void);
     redundant_status check_imus(void);
     redundant_status check_accs(void);
     bool check_uart(void);

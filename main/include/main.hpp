@@ -6,21 +6,10 @@
 #include <stdio.h>
 #include <stdint.h>
 
-// ## Function prototypes
-
-// Check system memory, etc.
-void chipCheck(void);
-
 // Main function
-// Note cursed preprocessor directives here to force
-// the function to be have C linkage.
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 void obc_main(void);
 
-#ifdef __cplusplus
-}
-#endif
+// System modes
+void offload(void);
+void diagnostic(void);
+void mission(bool test);
