@@ -16,6 +16,10 @@
 
 // Our dependencies
 #include "main.hpp"
+#include "System.hpp"
+
+// Globals
+System dm;
 
 // idf entrypoint
 extern "C" void app_main()
@@ -27,7 +31,8 @@ extern "C" void app_main()
 
 // Main function
 void obc_main(void) {
-    printf("Hello, world!");
+    // Initialise device manager
+    printf("fleeb");
 }
 
 
