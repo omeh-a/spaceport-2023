@@ -13,7 +13,9 @@ public:
     W25Q128();
 
     // Device methods
-   
+    status checkOK() override;
+    status init() override;
+
 };
 
 #endif

@@ -10,21 +10,29 @@
 #include <vector>
 #include <iostream>
 
-enum BusType {
-    i2c, spi
+#include "types.hpp"
+
+enum device_bus {
+    BUS_I2C0,
+    BUS_I2C1,
+    BUS_SPI0,
+    BUS_SPI1,
+    BUS_UART
 };
 
 class Device {
 public:
-    // virtual std::vector<uint32_t> read() = 0;
-    // virtual void init() = 0;
-    // virtual bool checkReadings() = 0;
-    // uint8_t whoamiReg;
-    // uint8_t busAddress;
+    // Runs some test to check the device is working.
+    // This might include checking it is accessible on the bus,
+    // seeing if measurements are in range or checking status registers.
+    virtual status checkOK() = 0;
+    
+    // Initialise device. Find device on the bus and set up registers, and finalise
+    // by running a sanity check (probably using Device::checkOK).
+    // Returns a `status`, same as checkOK.
+    virtual status init() = 0;
 
 
-    bool checkOK() {
-        return true; // Placeholder
-    }
+    // FYI: ignore the "=0" after these methods. It just forced them to be purely virtual.
 };
 #endif

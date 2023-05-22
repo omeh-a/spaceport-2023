@@ -13,7 +13,7 @@ typedef struct {
     uint16_t acc_x;
     uint16_t acc_y;
     uint16_t acc_z;
-} accel_reading;
+} accel_reading_t;
 
 typedef struct {
     uint16_t acc_x;
@@ -26,14 +26,31 @@ typedef struct {
     uint16_t mag_y;
     uint16_t mag_z;
     uint8_t temp;
-} imu_reading;
+} imu_reading_t;
 
-typedef uint32_t rtc_reading;
+typedef uint32_t rtc_reading_t;
 
 typedef struct {
     uint16_t humidity;
     uint16_t temp;
     uint16_t pressure;
-} env_reading;
+} baro_reading_t;
+
+enum status {
+    STATUS_OK,
+    STATUS_MISBEHAVING,
+    STATUS_FAILED,
+};
+enum flash_mode {
+    FLASH_INTERNAL,
+    FLASH_EXTERNAL
+};
+
+enum log_type {
+    LOG_INFO,
+    LOG_WARNING,
+    LOG_ERROR,
+    LOG_CRITICAL
+};
 
 #endif

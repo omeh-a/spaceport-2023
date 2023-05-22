@@ -13,6 +13,8 @@ public:
     ESPFlash();
 
     // Device methods
+    status checkOK() override;
+    status init() override;
 };
 
 #endif

@@ -61,6 +61,15 @@ System::System() {
     log_internal(std::string("Core initialisation complete.\n"), LOG_INFO);
 }
 
+
+void System::i2c_init() {
+    // Placeholder
+}
+
+void System::sensor_init() {
+    // Placeholder
+}
+
 /**
  * Logs a message to the system log.
  * 
@@ -99,8 +108,4 @@ void System::log_internal(std::string msg, log_type type) {
 void System::log_init() {
     // Placeholder
     std::cout << "Initialising logger...\n";
-}
-
-void System::i2c_init() {
-    // Placeholder
 }
