@@ -20,13 +20,15 @@ std::vector<accel_reading_t> H3LIS100DLTR::read() {
 }
 
 /**
- * Check if the device is working correctly.
+ * @brief 
+ * 
+ *
  * 
  * Returns either STATUS_OK if normal, STATUS_MISBEHAVING if
  * accessible but readings out of range, or STATUS_FAILED otherwise.
  * 
  * @return status: device status
-*/
+**/
 status H3LIS100DLTR::checkOK() {
     // Placeholder
     return STATUS_OK;
@@ -42,7 +44,23 @@ status H3LIS100DLTR::checkOK() {
  * 
  * @return status: device status
 */
-status H3LIS100DLTR::init() {
+status H3LIS100DLTR::init(idf::I2CMaster i2c) {
     // Placeholder
     return STATUS_OK;
+}
+
+
+void H3LIS100DLTR::stop()
+{
+
+}
+
+void H3LIS100DLTR::watchdog_task(void *parameters)
+{
+
+}
+
+void H3LIS100DLTR::watchdog_callback(TimerHandle_t xtimer)
+{
+
 }

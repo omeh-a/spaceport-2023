@@ -36,3 +36,18 @@ status W25Q128::init() {
     // Placeholder
     return STATUS_OK;
 }
+
+void W25Q128::stop()
+{
+
+}
+
+void W25Q128::watchdog_task(void *parameters)
+{
+
+}
+
+void W25Q128::watchdog_callback(TimerHandle_t xtimer)
+{
+
+}

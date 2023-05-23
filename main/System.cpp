@@ -66,6 +66,13 @@ System::System() {
  */
 void System::i2c_init() {
     // Placeholder
+
+    i2c = std::make_shared<idf::I2CMaster>(
+        idf::I2CNumber::I2C0(), // I2C1() for second bus
+        PIN_SCL, // the scl gpio pin
+        PIN_SDA, // the sda gpio pin
+        idf::Frequency::KHz(40)
+    );
 }
 
 /**
@@ -76,6 +83,9 @@ void System::i2c_init() {
  */
 void System::sensor_init() {
     // Placeholder
+
+    imu0.init(this->i2c, false);
+    imu0.init(this->i2c, true);
 }
 
 /**

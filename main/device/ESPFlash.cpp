@@ -49,3 +49,19 @@ status ESPFlash::init() {
 //     printf("Minimum free heap size: %" PRIu32 " bytes\n", esp_get_minimum_free_heap_size());
 // }
 }
+
+
+void ESPFlash::stop()
+{
+
+}
+
+void ESPFlash::watchdog_task(void *parameters)
+{
+
+}
+
+void ESPFlash::watchdog_callback(TimerHandle_t xtimer)
+{
+
+}

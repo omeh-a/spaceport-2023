@@ -40,7 +40,24 @@ status DS3231::checkOK() {
  * 
  * @return status: device status
 */
-status DS3231::init() {
+status DS3231::init(idf::I2CMaster i2c) {
     // Placeholder
     return STATUS_OK;
+}
+
+
+
+void DS3231::stop()
+{
+
+}
+
+void DS3231::watchdog_task(void *parameters)
+{
+
+}
+
+void DS3231::watchdog_callback(TimerHandle_t xtimer)
+{
+
 }

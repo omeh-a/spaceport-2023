@@ -16,6 +16,16 @@ public:
     // Device methods
     std::vector<baro_reading_t> read();
     status checkOK() override;
-    status init() override;
+    status init(idf::I2CMaster);
+
+    void stop() override;
+
+protected: 
+    void watchdog_task(void *parameters) override;
+    void watchdog_callback(TimerHandle_t xtimer) override;
+
+private:
+    std::shared_ptr<idf::I2CAddress> addr;
+    std::shared_ptr<idf::I2CMaster> i2c;
 };
 #endif

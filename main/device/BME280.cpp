@@ -42,7 +42,25 @@ status BME280::checkOK() {
  * 
  * @return status: device status
 */
-status BME280::init() {
+status BME280::init(idf::I2CMaster i2c) {
     // Placeholder
+    
     return STATUS_OK;
+}
+
+
+
+void BME280::stop()
+{
+
+}
+
+void BME280::watchdog_task(void *parameters)
+{
+
+}
+
+void BME280::watchdog_callback(TimerHandle_t xtimer)
+{
+
 }
