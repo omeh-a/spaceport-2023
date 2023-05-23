@@ -14,6 +14,8 @@ public:
     BME280();
 
     // Device methods
-    struct timeval getTime();
+    std::vector<baro_reading_t> read();
+    status checkOK() override;
+    status init() override;
 };
 #endif

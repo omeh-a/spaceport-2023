@@ -18,7 +18,8 @@ public:
 
     // Device methods
     struct timeval getTime();
-
+    status checkOK() override;
+    status init() override;
 
 };
 #endif

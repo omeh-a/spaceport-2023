@@ -62,6 +62,54 @@ System::System() {
 }
 
 /**
+ * Initialises the I2c bus for devices to use.
+ */
+void System::i2c_init() {
+    // Placeholder
+}
+
+/**
+ * Attempts to initialise all connected sensors.
+ * Must be called before attempting to read sensors.
+ * 
+ * @note System::i2c_init must succeed before calling this.
+ */
+void System::sensor_init() {
+    // Placeholder
+}
+
+/**
+ * Attempts to take a reading from each working accelerometer. 
+ * 
+ * @return std::vector<accel_reading_t> containing readings for each accelerometer
+ */
+std::vector<accel_reading_t> System::accelread(void) {
+    // Placeholder
+    return std::vector<accel_reading_t>({0});
+}
+/**
+ * Attempts to take a reading for each working IMU.
+ *
+ * @return std::vector<imu_reading_t> containing readings for each imu
+ */
+std::vector<imu_reading_t> System::imuread(void) {
+    // Placeholder
+
+    return std::vector<imu_reading_t>({0});
+}
+
+/**
+ * Attempts to take a reading for each working IMU.
+ *
+ * @return std::vector<baro_reading_t> containing readings for each barometer
+ */
+std::vector<baro_reading_t> System::baroread(void) {
+    // Placeholder
+
+    return std::vector<baro_reading_t>({0});
+}
+
+/**
  * Logs a message to the system log.
  * 
  * Automatically arbitrates between internal and external flash, and
@@ -99,8 +147,4 @@ void System::log_internal(std::string msg, log_type type) {
 void System::log_init() {
     // Placeholder
     std::cout << "Initialising logger...\n";
-}
-
-void System::i2c_init() {
-    // Placeholder
 }

@@ -15,7 +15,9 @@ public:
     H3LIS100DLTR();
 
     // Device methods
-   
+    status checkOK() override;
+    status init() override;
+    std::vector<accel_reading_t> read();
 };
 
 #endif
