@@ -12,8 +12,11 @@ class ICM20948 : public Device {
 public:
     ICM20948();
 
+    std::vector<imu_reading_t> read();
+
     // Device methods
-   
+    status checkOK() override;
+    status init() override;
 };
 
 #endif

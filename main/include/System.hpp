@@ -32,18 +32,6 @@
 
 
 // ### enums ###
-enum redundant_status {
-    RSTATUS_BOTH_OK,
-    RSTATUS_I2C0_OK,
-    RSTATUS_I2C1_OK,
-    RSTATUS_FAILED,
-};
-
-enum status {
-    STATUS_OK,
-    STATUS_MISBEHAVING,
-    STATUS_FAILED,
-};
 
 enum system_mode {
     MODE_NORMAL,
@@ -52,17 +40,7 @@ enum system_mode {
     MODE_DIAGNOSTIC,
 };
 
-enum flash_mode {
-    FLASH_INTERNAL,
-    FLASH_EXTERNAL
-};
 
-enum log_type {
-    LOG_INFO,
-    LOG_WARNING,
-    LOG_ERROR,
-    LOG_CRITICAL
-};
 
 // ### Class prototype ### 
 class System {
@@ -73,9 +51,10 @@ public:
     System();
 
     // Readings
-    std::vector<accel_reading> accelread(void);
-    std::vector<imu_reading> imuread(void);
-    rtc_reading rtcread(void);
+    std::vector<accel_reading_t> accelread(void);
+    std::vector<imu_reading_t> imuread(void);
+    std::vector<baro_reading_t> baroread(void);
+    rtc_reading_t rtcread(void);
 
     // ioctl
     int flash_flush(void);
@@ -83,6 +62,7 @@ public:
     void log_msg(std::string msg, log_type type);
     void offload(void);
     void i2c_init(void);
+    void sensor_init(void);
 
 private:
     // Private variables
@@ -103,8 +83,6 @@ private:
     void log_internal(std::string msg, log_type type);
 
     // Startup checks
-    redundant_status check_imus(void);
-    redundant_status check_accs(void);
     bool check_uart(void);
     bool check_power(void);
     bool check_payload(void);
