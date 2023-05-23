@@ -11,9 +11,11 @@
 #include <iostream>
 #include <vector>
 #include <sys/time.h>
+#include <memory>
 
 // esp-idf dependencies
 #include "driver/gpio.h"
+#include <system_cxx.hpp>
 
 
 // Our dependencies
@@ -29,7 +31,9 @@
 #define PIN_OFFLOAD (gpio_num_t) 2
 #define PIN_TESTMODE (gpio_num_t) 3
 
-
+// TODO: check these
+#define PIN_SCL idf::SCL_GPIO(10)
+#define PIN_SDA idf::SDA_GPIO(11)
 
 // ### enums ###
 
@@ -77,7 +81,8 @@ private:
     BME280 baro1;
     ICM20948 imu0;
     ICM20948 imu1;
-    
+
+    std::shared_ptr<idf::I2CMaster> i2c;
 
     // Private methods
     void log_internal(std::string msg, log_type type);
@@ -86,6 +91,9 @@ private:
     bool check_uart(void);
     bool check_power(void);
     bool check_payload(void);
+
+    // Interrupt handler for I2C devices
+    static void interrupt_handler(void *param);
 };
 
 #endif

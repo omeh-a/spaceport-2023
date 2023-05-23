@@ -15,8 +15,13 @@ ICM20948::ICM20948() {
 */
 std::vector<imu_reading_t> ICM20948::read() {
     // Placeholder
-    imu_reading_t placeholder[] = {0};
-    std::vector<imu_reading_t> readings = std::vector<imu_reading_t>(placeholder, placeholder + sizeof(imu_reading_t) / sizeof(placeholder[0]));
+
+    // imu_reading_t placeholder[] = {0};
+    // std::vector<imu_reading_t> readings = std::vector<imu_reading_t>(placeholder, placeholder + sizeof(imu_reading_t) / sizeof(placeholder[0]));
+
+    auto readings = std::vector<imu_reading_t>{};
+    measurements.swap(readings);
+
     return readings;
 }
 
@@ -43,7 +48,35 @@ status ICM20948::checkOK() {
  * 
  * @return status: device status
 */
-status ICM20948::init() {
-    // Placeholder
+status ICM20948::init(std::shared_ptr<idf::I2CMaster> i2c, bool alt_address) {
+    this->addr = std::make_shared<idf::I2CAddress>(BASE_ADDRESS | alt_address);
+    this->i2c = i2c;
+
+    // i2c.sync_transfer(addr, void, 10);
+
     return STATUS_OK;
+}
+
+void ICM20948::stop()
+{
+
+}
+
+void ICM20948::watchdog_task(void *parameters)
+{
+
+}
+
+void ICM20948::watchdog_callback(TimerHandle_t xtimer)
+{
+    imu_reading_t reading {
+        0, 0, 0,
+        0, 0, 0,
+        0, 0, 0,
+        0
+    };
+
+    // this->i2c.sync_transfer(this->addr, void, sizeof(imu_reading_t));
+    
+    measurements.push_back(reading);
 }
