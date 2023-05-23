@@ -45,3 +45,4 @@ CMakeFiles/
 # esp-idf
 build/
 managed_components/
+.cache/
