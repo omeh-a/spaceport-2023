@@ -17,6 +17,7 @@
 #include "driver/gpio.h"
 #include <system_cxx.hpp>
 
+#include <semaphore>
 
 // Our dependencies
 #include "types.hpp"
@@ -45,7 +46,6 @@ enum system_mode {
 };
 
 
-
 // ### Class prototype ### 
 class System {
 public:
@@ -67,6 +67,7 @@ public:
     void offload(void);
     void i2c_init(void);
     void sensor_init(void);
+    void sensor_update(void); // block until all sensors have data
 
 private:
     // Private variables
@@ -94,6 +95,7 @@ private:
 
     // Interrupt handler for I2C devices
     static void interrupt_handler(void *param);
+    static std::binary_semaphore data_ready;
 };
 
 #endif
