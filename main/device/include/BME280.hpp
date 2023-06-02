@@ -218,6 +218,12 @@ private:
     int8_t _dig_H6;
     void clearCalibrationData(void);
 
+    // The variable t_fine (signed 32 bit) carries a fine resolution temperature value over to the pressure and
+    // humidity compensation formula and could be implemented as a global variable.
+    int32_t _t_fine;
+    temp_t _temperature;
+    press_t _pressure;
+    humid_t _humidity;  
 };
 
 
