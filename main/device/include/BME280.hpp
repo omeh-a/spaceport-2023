@@ -134,7 +134,7 @@ Normal mode: perpetual cycling of measurements and inactive periods.
 
 
 // Value of ID register.
-#define BME280_ID  (0x60)
+#define BME280_ID  (uint8_t)(0x60)
 
 
 // Values for t_sb field of CONFIG register
@@ -181,9 +181,11 @@ public:
 
     // Device methods
     std::vector<baro_reading_t> read();
+    void printReadings(const std::vector<baro_reading_t>& readings);
     status checkOK() override;
     status init(idf::I2CMaster);
-
+    uint8_t begin(uint8_t i2cAddress);
+    uint8_t readId(void);
     void stop() override;
 
 protected: 
@@ -194,6 +196,10 @@ private:
     std::shared_ptr<idf::I2CAddress> addr;
     std::shared_ptr<idf::I2CMaster> i2c;
     uint8_t _i2c_address; // address 
+    void busWrite(uint8_t *p_data, uint8_t data_size, uint8_t repeated_start);
+    void busRead(uint8_t *p_data, uint8_t data_size);
+ 
+
     // Calibration data.
     //--Temperature calibration
     uint16_t _dig_T1;
@@ -217,6 +223,12 @@ private:
     int16_t _dig_H5;
     int8_t _dig_H6;
     void clearCalibrationData(void);
+    
+    
+    // helpful stuff
+    uint8_t readUint8(uint8_t reg);
+    uint16_t readUint16(uint8_t reg);
+
 
     // The variable t_fine (signed 32 bit) carries a fine resolution temperature value over to the pressure and
     // humidity compensation formula and could be implemented as a global variable.

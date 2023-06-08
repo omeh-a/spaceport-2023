@@ -83,7 +83,8 @@ void System::i2c_init() {
  */
 void System::sensor_init() {
     // Placeholder
-
+    baro0.checkOK();
+    
     imu0.init(this->i2c, false);
     imu0.init(this->i2c, true);
 }

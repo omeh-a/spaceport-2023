@@ -58,12 +58,16 @@ uint8_t BME280::begin(uint8_t i2cAddress) {
 /*
     busWrite determines which interface to write to and chooses between I2C communication or spi
     communication.
-    This function takes in 3 arguments which include p_data 
+    This function takes in 3 arguments which include p_data which is a pointer to the data array, 
+    data size which is the size of the array and a flag repeated_start which indicates whether a 
+    repeated start condition is used. *NOTE* A 'repeated start' is basically a continuing conversation
+    to get multiple readings :)
 */
-void BME280::busWrite(uint8_t *p_data, uint8_t data_size, uint8_t repeated_start) {
+void BME280::busWrite(uint8_t *p_data, uint8_t data_size, uint8_t repeated_start) 
+{
     if (_i2c_address == BME280_I2C_ADDRESS1 || _i2c_address == BME280_I2C_ADDRESS2) {
         // yay! i2c worked :) 
-        i2cWrite(_i2c_address, p_data, data_size, repeated_start);
+        i2cWrite(_i2c_address, p_data, data_size, repeated_start); 
     } else {
         // most likely wont use as we focus on SPI
         //This operation clears the most significant bit (MSB) of the first element
@@ -71,6 +75,24 @@ void BME280::busWrite(uint8_t *p_data, uint8_t data_size, uint8_t repeated_start
         spiWrite(p_data, data_size); 
     }
 }
+/*
+    Similar to busWrite however it reads to the chosen communication.
+    :)
+*/
+void BME280::busRead(uint8_t *p_data, uint8_t data_size) 
+{
+    if (_i2c_address == BME280_I2C_ADDRESS1 || _i2c_address == BME280_I2C_ADDRESS2) {
+        // yay! i2c worked :) 
+        i2cRead(_i2c_address, p_data, data_size);
+    } else {
+        // most likely wont use as we focus on SPI
+        //This operation clears the most significant bit (MSB) of the first element
+        p_data[0] &= 0x80;
+        spiRead(p_data, data_size); 
+    }
+}
+
+// uint8_t
 
 /* read ID returns the Register */
 uint8_t BME280::readId(void)
@@ -78,7 +100,35 @@ uint8_t BME280::readId(void)
     return readUint8(BME280_ID_REGISTER);
 }
 
+// reading unsign ints helpers -------------------
+/*
+    These functions are for convenience  and helps in
+    reading specific registers :)
+*/
+/*  This function takes in register address.
+*/
+uint8_t BME280::readUint8(uint8_t reg)
+{
+  uint8_t data;
+  busWrite(&reg,1,1); // Use repeated start.
+  busRead(&data,1); // Read one byte.
+  return data;
+}
 
+
+uint16_t BME280::readUint16(uint8_t reg)
+{
+  uint8_t data[2];
+  uint16_t value;
+  busWrite(&reg,1,1); // Use repeated start.
+  busRead(data,2); // Read two bytes.
+  // Process as little endian, which is the case for calibration data.
+  value = data[1];
+  value = (value<<8) | data[0];
+  return value;
+}
+
+// -----------------------------------------------
 
 /**
 * Prints everything out from the readings
@@ -131,10 +181,12 @@ std::vector<baro_reading_t> BME280::read() {
 status BME280::checkOK() {
     // creating a chip ID
     uint16_t chip_ID;
-
+    //FIXME: temporary value assigned to CHIP_ID
+    // chip_ID = 1;
 
     // want to check if the BME280 chip is present
     // i2cRead(BME280_I2C_ADDRESS1, BME280_ID, &chip_ID, 1);
+    i2c_master_write_read_device(BME280_ID_REGISTER);
     // if chip is not present
     if (chip_ID != BME280_ID ) {
         // not found the bme280 chip :(
