@@ -68,6 +68,8 @@ public:
     void i2c_init(void);
     void sensor_init(void);
     void sensor_update(void); // block until all sensors have data
+    void await_launch(void);
+
 
 private:
     // Private variables

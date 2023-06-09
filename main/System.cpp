@@ -170,3 +170,53 @@ void System::log_init() {
 void System::interrupt_handler(void *param) {
     System::data_ready.release();
 }
+
+
+
+/**
+ * Silently wait until launch is detected.
+ * 
+ * Launch is detected with a >1G vertical acceleration and a vertical velocity
+ * in the appropriate direction. If the IMU is unavailable velocity is discarded.
+ * If the high range accelerometer is unavailable the IMU takes over.
+ * 
+ */
+void System::await_launch(void) {
+    // Decide on which devices to use.
+
+
+    uint8_t prev = 0;
+
+    // Sit in loop
+    for (;;) {
+        auto acc_readings = accelread();
+        uint8_t acc_out = 0;
+        // Take average of accelerometer read
+        for (int i = 0; i < acc_readings.size(); i++) {
+            acc_out = (acc_out + acc_readings[i].acc_z) / 2;
+        }
+
+        auto imu_readings = imuread();
+        // Take average of IMU read
+        for (int i = 0; i < imu_readings.size(); i++) {
+            // If accelerometer unavailable, overwrite acc reading
+            if (acc_readings.size() == 0) {
+                acc_out = (acc_out + imu_readings[i].acc_z) / 2;
+            }
+            out = (out + imu_readings[i].acc_z) / 2;
+        }
+
+        // Decide if rate of change sufficient for launch
+        // TODO: increase sample size if needed, same as baro
+        // Note: converting accel launch threshold to be for 50ms (50ms = 1/20 seconds)
+        if (out - prev > (ACCEL_LAUNCH_THRESH/20)) {
+            // Launch detected
+            return;
+        } else {
+            prev = acc_out;
+        }
+    
+        // Delay 50ms
+        vTaskDelay(pdMS_TO_TICKS(50));
+    }
+}
