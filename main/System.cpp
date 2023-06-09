@@ -83,8 +83,6 @@ void System::i2c_init() {
  */
 void System::sensor_init() {
     // Placeholder
-
-    // init both IMUs
     imu0.init(this->i2c, false);
     imu1.init(this->i2c, true);
 }
