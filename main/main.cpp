@@ -32,6 +32,7 @@ extern "C" void app_main()
 // Main function
 void obc_main(void) {
     // Switch to appropriate mode
+    printf("WE ARE IN OBC MAIN\n ");
     bool mission_mode = false;
     switch (dm.mode) {
         case MODE_NORMAL:
@@ -93,14 +94,14 @@ void offload(void) {
  * Outputs all sensor output on serial for sanity checking.
 */
 void diagnostic(void) {
-    for (;;) {
+    for (int j = 0;j < 10;j++) {
         // Diagnostic mode ignores the flash chip. Just read all sensors and print.
-
+        printf("WE ARE IN DIAGNOSTIC FOR LOOP\n ");
         // Accelerometer
-        std::vector<accel_reading_t> accel_readings = dm.accelread();
+        // std::vector<accel_reading_t> accel_readings = dm.accelread();
 
         // IMU
-        std::vector<imu_reading_t> imu_readings = dm.imuread();
+        // std::vector<imu_reading_t> imu_readings = dm.imuread();
 
         // Barometer
         std::vector<baro_reading_t> baro_readings = dm.baroread();
@@ -109,15 +110,19 @@ void diagnostic(void) {
         time_t curr_time = time(NULL);
 
         // Print all values in one line
+        // FIXME: Uncomment this below 
         printf("%" PRIu64 " ", curr_time);
-        for (int i = 0; i < accel_readings.size(); i++) {
-            printf("| acc%d    x=[%8u] y=[%8u] z=[%8u] |\n",i, accel_readings[i].acc_x, accel_readings[i].acc_y, accel_readings[i].acc_z);
-        }
-        for (int i = 0; i < imu_readings.size(); i++) {
-            printf("| imu%d_ac x=[%8u] y=[%8u] z=[%8u] |\n", i, (unsigned)imu_readings[i].acc_x, (unsigned)imu_readings[i].acc_y, (unsigned)imu_readings[i].acc_z);
-            printf("| imu%d_gy x=[%8u] y=[%8u] z=[%8u] |\n", i, (unsigned)imu_readings[i].gyr_x, (unsigned)imu_readings[i].gyr_y, (unsigned)imu_readings[i].gyr_z);
-            printf("| imu%d_mg x=[%8u] y=[%8u] z=[%8u] |\n", i, (unsigned)imu_readings[i].mag_x, (unsigned)imu_readings[i].mag_y, (unsigned)imu_readings[i].mag_z);
-        }
+        // for (int i = 0; i < accel_readings.size(); i++) {
+        //     printf("| acc%d    x=[%8u] y=[%8u] z=[%8u] |\n",i, accel_readings[i].acc_x, accel_readings[i].acc_y, accel_readings[i].acc_z);
+        // }
+        // for (int i = 0; i < imu_readings.size(); i++) {
+        //     printf("| imu%d_ac x=[%8u] y=[%8u] z=[%8u] |\n", i, (unsigned)imu_readings[i].acc_x, (unsigned)imu_readings[i].acc_y, (unsigned)imu_readings[i].acc_z);
+        //     printf("| imu%d_gy x=[%8u] y=[%8u] z=[%8u] |\n", i, (unsigned)imu_readings[i].gyr_x, (unsigned)imu_readings[i].gyr_y, (unsigned)imu_readings[i].gyr_z);
+        //     printf("| imu%d_mg x=[%8u] y=[%8u] z=[%8u] |\n", i, (unsigned)imu_readings[i].mag_x, (unsigned)imu_readings[i].mag_y, (unsigned)imu_readings[i].mag_z);
+        // }
+        
+        //DEBUG STUFF: IZY 
+        dm.baroread();
         for (int i = 0; i < baro_readings.size(); i++) {
             printf("| baro%d  h=[%8u] t=[%8u] p=[%8u] ", i, (unsigned)baro_readings[i].temp, (unsigned)baro_readings[i].pressure, (unsigned)baro_readings[i].humidity);
         }
