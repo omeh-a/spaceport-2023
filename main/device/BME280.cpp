@@ -5,6 +5,8 @@
 
 #include "BME280.hpp"
 #include "i2c_cxx.hpp"
+#include <sys/_stdint.h>
+#include <sys/_stdint.h>
 
 BME280::BME280() {
     // start at 0;
@@ -138,8 +140,7 @@ void printReadings(const std::vector<baro_reading_t>& readings) {
    for (const auto& reading : readings) {
        printf("Temperature: %d °C\n", reading.temp);
        printf("Pressure: %d \n", reading.pressure);
-       printf("Humidity: %d \n", reading.humidity);
-      
+       printf("Humidity: %d \n", reading.humidity);  
    }
 }
 
@@ -186,7 +187,19 @@ status BME280::checkOK() {
 
     // want to check if the BME280 chip is present
     // i2cRead(BME280_I2C_ADDRESS1, BME280_ID, &chip_ID, 1);
-    i2c_master_write_read_device(BME280_ID_REGISTER);
+    // 
+    // use esp_err_t i2c_master_write_read_device(i2c_port_t i2c_num, uint8_t device_address, const uint8_t *write_buffer, size_t write_size, uint8_t *read_buffer, size_t read_size, TickType_t ticks_to_wait) 
+    uint8_t write_buf[1] = BME280_ID_REGISTER;
+    uint8_t result[1] = {0};
+    i2c_master_write_read_device(, 0, BME280_I2C_ADDRESS1, write_buf, 1,result, 1,300 );
+
+    /**
+     * uint8_t wbuf[1] = BME_ID_REGISTER;
+     * uint8_t result[1] = {0};
+     * i2c_master_write_read_device([i2c_struct]), 0, BME280_I2C_ADDRESS1, wbuf, 1, result, 1, 300);
+     * 
+     * 
+    */
     // if chip is not present
     if (chip_ID != BME280_ID ) {
         // not found the bme280 chip :(
