@@ -83,10 +83,15 @@ void System::i2c_init() {
  */
 void System::sensor_init() {
     // Placeholder
-    baro0.checkOK();
-    
     imu0.init(this->i2c, false);
-    imu0.init(this->i2c, true);
+    imu1.init(this->i2c, true);
+}
+
+void System::sensor_update() {
+    System::data_ready.acquire(); // block until data is ready
+
+    imu0.update();
+    imu1.update();
 }
 
 /**
@@ -158,4 +163,8 @@ void System::log_internal(std::string msg, log_type type) {
 void System::log_init() {
     // Placeholder
     std::cout << "Initialising logger...\n";
+}
+
+void System::interrupt_handler(void *param) {
+    System::data_ready.release();
 }
