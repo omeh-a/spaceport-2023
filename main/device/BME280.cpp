@@ -5,8 +5,10 @@
 
 #include "BME280.hpp"
 #include "i2c_cxx.hpp"
+// #include 
 #include <sys/_stdint.h>
 #include <sys/_stdint.h>
+
 
 BME280::BME280() {
     // start at 0;
@@ -181,7 +183,7 @@ std::vector<baro_reading_t> BME280::read() {
 */
 status BME280::checkOK() {
     // creating a chip ID
-    uint16_t chip_ID;
+    uint16_t chip_ID = 0;
     //FIXME: temporary value assigned to CHIP_ID
     // chip_ID = 1;
 
@@ -189,10 +191,14 @@ status BME280::checkOK() {
     // i2cRead(BME280_I2C_ADDRESS1, BME280_ID, &chip_ID, 1);
     // 
     // use esp_err_t i2c_master_write_read_device(i2c_port_t i2c_num, uint8_t device_address, const uint8_t *write_buffer, size_t write_size, uint8_t *read_buffer, size_t read_size, TickType_t ticks_to_wait) 
-    uint8_t write_buf[1] = BME280_ID_REGISTER;
-    uint8_t result[1] = {0};
-    i2c_master_write_read_device(, 0, BME280_I2C_ADDRESS1, write_buf, 1,result, 1,300 );
+    auto buf = std::vector<uint8_t>();
+    idf::I2CCommandLink cmd;
+    cmd.start();
+    cmd.write_byte(BME280_ID_REGISTER);
+    cmd.read(buf);
+    cmd.execute_transfer(idf::I2CNumber::I2C0(), std::chrono::milliseconds::max() );
 
+   
     /**
      * uint8_t wbuf[1] = BME_ID_REGISTER;
      * uint8_t result[1] = {0};

@@ -64,7 +64,7 @@ status ICM20948::init(std::shared_ptr<idf::I2CMaster> i2c, bool alt_address) {
     try {
       this->i2c->sync_read(*this->addr, 0); // send nothing
                                             // should still recieve ACK
-    } catch (idf::I2CException e) {
+    } catch (idf::I2CException& e) {
       // something went wrong with the i2c communication
       return STATUS_FAILED;
     }
@@ -74,7 +74,7 @@ status ICM20948::init(std::shared_ptr<idf::I2CMaster> i2c, bool alt_address) {
       // Do a full reset.
       const std::vector<uint8_t> data {USER_CTRL, 0x00};
       this->i2c->sync_write(*this->addr, data);
-    } catch (idf::I2CException e) {
+    } catch (idf::I2CException& e) {
       return STATUS_FAILED;
     }
 
@@ -83,7 +83,7 @@ status ICM20948::init(std::shared_ptr<idf::I2CMaster> i2c, bool alt_address) {
       // enable the raw data ready interrupt
       const std::vector<uint8_t> data {INT_ENABLE + 3, 0x01};
       this->i2c->sync_write(*this->addr, data);
-    } catch (idf::I2CException e) {
+    } catch (idf::I2CException& e) {
       return STATUS_FAILED;
     }
 
@@ -112,7 +112,7 @@ void ICM20948::update() {
       // if the struct is packed correctly
       // could easily change to the more direct assignment approach.
 
-    } catch (idf::I2CException e) {
+    } catch (idf::I2CException& e) {
       this->alive = false;
       return;
     }

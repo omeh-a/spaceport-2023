@@ -33,8 +33,8 @@
 #define PIN_TESTMODE (gpio_num_t) 3
 
 // TODO: check these
-#define PIN_SCL idf::SCL_GPIO(10)
-#define PIN_SDA idf::SDA_GPIO(11)
+#define PIN_SCL idf::SCL_GPIO(22)
+#define PIN_SDA idf::SDA_GPIO(21)
 
 // ### enums ###
 
