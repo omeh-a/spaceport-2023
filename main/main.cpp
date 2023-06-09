@@ -123,6 +123,7 @@ void diagnostic(void) {
         
         //DEBUG STUFF: IZY 
         dm.baroread();
+        
         for (int i = 0; i < baro_readings.size(); i++) {
             printf("| baro%d  h=[%8u] t=[%8u] p=[%8u] ", i, (unsigned)baro_readings[i].temp, (unsigned)baro_readings[i].pressure, (unsigned)baro_readings[i].humidity);
         }
