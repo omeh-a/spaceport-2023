@@ -23,7 +23,7 @@ System::System() {
     gpio_config(&io_conf);
     
     // Check jumpers to decide system mode.
-    // This line of code is potentially nefarious because I'm not too sure
+    // This line of code is potgentially nefarious because I'm not too sure
     // how C++ handles enum types
     mode = (system_mode)(gpio_get_level(PIN_OFFLOAD) | (gpio_get_level(PIN_TESTMODE) << 1));
 
@@ -196,22 +196,22 @@ void System::await_launch(void) {
 
         auto imu_readings = imuread();
         // Take average of IMU read
-        for (int i = 0; i < imu_readings.size(); i++) {
-            // If accelerometer unavailable, overwrite acc reading
-            if (acc_readings.size() == 0) {
-                acc_out = (acc_out + imu_readings[i].acc_z) / 2;
-            }
-            out = (out + imu_readings[i].acc_z) / 2;
-        }
+        // for (int i = 0; i < imu_readings.size(); i++) {
+        //     // If accelerometer unavailable, overwrite acc reading
+        //     if (acc_readings.size() == 0) {
+        //         acc_out = (acc_out + imu_readings[i].acc_z) / 2;
+        //     }
+        //     out = (out + imu_readings[i].acc_z) / 2;
+        // }
 
-        // Decide if rate of change sufficient for launch
-        // TODO: increase sample size if needed, same as baro
-        // Note: converting accel launch threshold to be for 50ms (50ms = 1/20 seconds)
-        if (out - prev > (ACCEL_LAUNCH_THRESH/20)) {
-            // Launch detected
-            return;
-        } else {
-            prev = acc_out;
+        // // Decide if rate of change sufficient for launch
+        // // TODO: increase sample size if needed, same as baro
+        // // Note: converting accel launch threshold to be for 50ms (50ms = 1/20 seconds)
+        // if (out - prev > (ACCEL_LAUNCH_THRESH/20)) {
+        //     // Launch detected
+        //     return;
+        // } else {
+        //     prev = acc_out;
         }
     
         // Delay 50ms
